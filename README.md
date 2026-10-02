@@ -48,6 +48,6 @@ Hospital and lab names and locations are real. Doctor names, fees and availabili
 - [x] API and database
 - [x] Containerised with Docker Compose
 - [x] CI pipeline with image vulnerability scanning
-- [ ] Kubernetes manifests
+- [x] Kubernetes manifests
 - [ ] Prometheus and Grafana
 - [ ] Terraform
