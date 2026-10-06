@@ -49,5 +49,14 @@ Hospital and lab names and locations are real. Doctor names, fees and availabili
 - [x] Containerised with Docker Compose
 - [x] CI pipeline with image vulnerability scanning
 - [x] Kubernetes manifests
-- [ ] Prometheus and Grafana
+- [x] Prometheus and Grafana
 - [ ] Terraform
+
+## Monitoring
+
+Prometheus discovers the API pods through the Kubernetes API and scrapes `/metrics` from each replica. Grafana starts with the Prometheus data source and the dashboard already provisioned from files in `monitoring/`, so nothing is configured by hand.
+
+![Grafana dashboard](docs/grafana.png)
+
+    kubectl apply -f monitoring/
+    kubectl port-forward service/grafana 3000:3000

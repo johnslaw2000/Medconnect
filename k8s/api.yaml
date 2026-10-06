@@ -33,6 +33,8 @@ spec:
               path: /health
               port: 8000
             initialDelaySeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
           readinessProbe:
             httpGet:
               path: /health
