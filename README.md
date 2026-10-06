@@ -50,7 +50,7 @@ Hospital and lab names and locations are real. Doctor names, fees and availabili
 - [x] CI pipeline with image vulnerability scanning
 - [x] Kubernetes manifests
 - [x] Prometheus and Grafana
-- [ ] Terraform
+- [x] Terraform
 
 ## Monitoring
 
@@ -60,3 +60,17 @@ Prometheus discovers the API pods through the Kubernetes API and scrapes `/metri
 
     kubectl apply -f monitoring/
     kubectl port-forward service/grafana 3000:3000
+
+## Rebuild from scratch
+
+The cluster is created by Terraform and everything on it is deployed from manifests in this repo:
+
+    cd terraform && terraform init && terraform apply && cd ..
+    docker build -t medconnect-api:latest ./api
+    kind load docker-image medconnect-api:latest --name medconnect
+    kubectl apply -f k8s/ -f monitoring/
+    curl http://localhost:30080/hospitals
+
+Terraform maps NodePort 30080 from the cluster to the host, so the API is reachable without a port-forward.
+
+**Lesson learned:** pinning the node image to v1.37.0 made `kubeadm init` fail, because the Terraform kind provider bundles its own kind version that did not support that image. Leaving the image unset lets the provider choose a compatible one.
