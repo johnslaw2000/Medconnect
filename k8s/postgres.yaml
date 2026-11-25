@@ -51,6 +51,7 @@ spec:
               command: ["pg_isready", "-U", "medconnect"]
             initialDelaySeconds: 5
             periodSeconds: 5
+            timeoutSeconds: 5
           volumeMounts:
             - name: initdb
               mountPath: /docker-entrypoint-initdb.d
